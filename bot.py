@@ -3364,23 +3364,35 @@ def background_renewal_checker():
 
 Thread(target=background_renewal_checker, daemon=True).start()
 
-# ========== ЗАПУСК ==========
+# ===== Render үшін жалған сайт =====
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+# ===================================
+
+# ========= ЗАПУСК ==========
 if __name__ == "__main__":
     init_db()
-    
+    threading.Thread(target=run_flask, daemon=True).start()
+
     try:
         bot_user = bot.get_me()
         BOT_USERNAME = bot_user.username
         print(f"✅ Бот: @{BOT_USERNAME}")
     except:
         BOT_USERNAME = None
-        print("⚠️ Не удалось получить username бота")
-    
+        print("⚠️ Не удалось получить username")
+
     print(f"📁 Папка: {USERS_DIR}")
     print("✅ Хостинг SELVER HOSTING запущен!")
-    print("🔄 Восстановление файлов и процессов...")
-    
+    print("🔄 Восстановление файлов и процессов")
+
     restore_user_processes()
-    
+
     print("🤖 Бот запущен и готов к работе!")
     bot.infinity_polling()
