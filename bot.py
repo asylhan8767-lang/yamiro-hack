@@ -3377,7 +3377,18 @@ def run_flask():
 # ========== ЗАПУСК ==========
 if __name__ == "__main__":
     init_db()
+    
+    # 1. Сайтты бөлек потокта қосамыз
     threading.Thread(target=run_flask, daemon=True).start()
+    print("✅ Хостинг SELVER HOSTING запущен!")
+
+    # 2. Ескі боттарды өлтіреміз (409-дан құтылу үшін)
+    print("🧹 Вебхук тазаланып жатыр...")
+    try:
+        bot.remove_webhook()
+        time.sleep(5)
+    except:
+        pass
 
     try:
         bot_user = bot.get_me()
@@ -3387,10 +3398,15 @@ if __name__ == "__main__":
         BOT_USERNAME = None
 
     print(f"📁 Папка: {USERS_DIR}")
-    print("✅ Хостинг SELVER HOSTING запущен!")
     print("🔄 Восстановление файлов и процессов")
     restore_user_processes()
+    
     print("🤖 Бот запущен и готов к работе!")
-    bot.remove_webhook()
-    time.sleep(2)
-    bot.infinity_polling(skip_pending=True)
+
+    # 3. Ботты ешқашан өлмейтін етіп қосамыз
+    while True:
+        try:
+            bot.infinity_polling(skip_pending=True, timeout=60, long_polling_timeout=60)
+        except Exception as e:
+            print(f"⚠️ Қате: {e} - 10 сек күтіп, қайта қосыламын...")
+            time.sleep(10)
