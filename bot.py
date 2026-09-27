@@ -3392,7 +3392,9 @@ if __name__ == "__main__":
     print("✅ Хостинг SELVER HOSTING запущен!")
     print("🔄 Восстановление файлов и процессов")
 
-    restore_user_processes()
+        restore_user_processes()
 
     print("🤖 Бот запущен и готов к работе!")
+    bot.remove_webhook()
+    time.sleep(2)
     bot.infinity_polling()
