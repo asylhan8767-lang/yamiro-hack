@@ -3375,7 +3375,7 @@ def run_flask():
     app.run(host="0.0.0.0", port=port)
 # ===================================
 
-# ========= ЗАПУСК ==========
+# ========== ЗАПУСК ==========
 if __name__ == "__main__":
     init_db()
     threading.Thread(target=run_flask, daemon=True).start()
@@ -3393,8 +3393,8 @@ if __name__ == "__main__":
     print("🔄 Восстановление файлов и процессов")
 
     restore_user_processes()
-    
+
     print("🤖 Бот запущен и готов к работе!")
     bot.remove_webhook()
     time.sleep(2)
-    bot.infinity_polling()
+    bot.infinity_polling(skip_pending=True)
