@@ -3373,7 +3373,6 @@ def home():
 def run_flask():
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-# ===================================
 
 # ========== ЗАПУСК ==========
 if __name__ == "__main__":
@@ -3386,14 +3385,11 @@ if __name__ == "__main__":
         print(f"✅ Бот: @{BOT_USERNAME}")
     except:
         BOT_USERNAME = None
-        print("⚠️ Не удалось получить username")
 
     print(f"📁 Папка: {USERS_DIR}")
     print("✅ Хостинг SELVER HOSTING запущен!")
     print("🔄 Восстановление файлов и процессов")
-
     restore_user_processes()
-
     print("🤖 Бот запущен и готов к работе!")
     bot.remove_webhook()
     time.sleep(2)
