@@ -1,10 +1,23 @@
 # -*- coding: utf-8 -*-
-# pip install pyTelegramBotAPI
-import telebot, sqlite3, threading, html, time, traceback
+# pip install pyTelegramBotAPI Flask
+import telebot, sqlite3, threading, html, os
 from urllib.parse import quote
 from telebot import types
 
-TOKEN = "8826997118:AAGBeacnHGziZ5WwnIERS57jAMSqRi5TVWM"
+# --- RENDER ТЕГІН ІСТЕУ ҮШІН КОД ---
+from flask import Flask
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "YAMIRO MODS SHOP - BOT IS ALIVE!"
+
+def run_web():
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
+threading.Thread(target=run_web, daemon=True).start()
+# --- БІТТІ ---
+
+TOKEN = "8826997118:AAGBeacnHGziZ5WwnIERS57" # <-- мұнда сенің токенің тұрады
 ADMIN_ID = 8826944181
 SHOP_NAME = "YAMIRO MODS SHOP"
 DEFAULT_REF_BONUS = 10
